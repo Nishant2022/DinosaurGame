@@ -108,6 +108,20 @@ def main():
     high_score = 0
     SCOREEVENT = pygame.USEREVENT + 10
     pygame.time.set_timer(SCOREEVENT, 100)
+
+    # Open saved high score. If the file or directory does not exist, create them.
+
+    try:
+        os.makedirs("data")
+    except FileExistsError:
+        pass
+
+    try:
+        with open(os.path.join(script_dir, 'data', 'score.txt'), 'r') as f:
+            high_score = int(f.readline())
+    except FileNotFoundError:
+        with open(os.path.join(script_dir, 'data', 'score.txt'), 'w') as f:
+            f.write("0")
     
     while True:
 
@@ -236,6 +250,11 @@ def main():
             if game_active:
                 death_sound.play()
             game_active = False
+
+            # If there is a new high score, save it to score.txt
+            temp_high_score = max(high_score, score)
+            with open(os.path.join(script_dir, 'data', 'score.txt'), 'w') as f:
+                f.write(str(temp_high_score))
             
         if game_active == False:
              game_over_display(screen, game_over_font, game_over_button, first_game)   
