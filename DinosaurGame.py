@@ -43,29 +43,27 @@ def main():
     score_font = pygame.font.Font(os.path.join(script_dir, './assets/font/PressStart2P-Regular.ttf'), 12)
     game_over_font = pygame.font.Font(os.path.join(script_dir, './assets/font/PressStart2P-Regular.ttf'), 15)
 
+    # Load image function to keep code dry
+    def load_image(name, scale):
+        surface = pygame.image.load(os.path.join(script_dir, 'assets', 'images', name)).convert_alpha()
+        surface = pygame.transform.rotozoom(surface, 0, scale)
+        return surface
+
     # Floor
-    floor_surface = pygame.image.load(os.path.join(script_dir, './assets/images/floor.png')).convert_alpha()
-    floor_surface = pygame.transform.rotozoom(floor_surface, 0, .5)
+    floor_surface = load_image('floor.png', 0.5)
 
     # Cloud
-    cloud_surface = pygame.image.load(os.path.join(script_dir, './assets/images/cloud.png')).convert_alpha()
-    cloud_surface = pygame.transform.rotozoom(cloud_surface, 0, .8)
+    cloud_surface = load_image('cloud.png', 0.8)
     CLOUD = pygame.USEREVENT
     pygame.time.set_timer(CLOUD, 500)
 
     # Dinosaur
-    walk_1 = pygame.image.load(os.path.join(script_dir, './assets/images/walk1.png')).convert_alpha()
-    walk_1 = pygame.transform.rotozoom(walk_1, 0, .8)
-    walk_2 = pygame.image.load(os.path.join(script_dir, './assets/images/walk2.png')).convert_alpha()
-    walk_2 = pygame.transform.rotozoom(walk_2, 0, .8)
-    duck_1 = pygame.image.load(os.path.join(script_dir, './assets/images/duck1.png')).convert_alpha()
-    duck_1 = pygame.transform.rotozoom(duck_1, 0, .8)
-    duck_2 = pygame.image.load(os.path.join(script_dir, './assets/images/duck2.png')).convert_alpha()
-    duck_2 = pygame.transform.rotozoom(duck_2, 0, .8)
-    death_image = pygame.image.load(os.path.join(script_dir, './assets/images/death2.png')).convert_alpha()
-    death_image = pygame.transform.rotozoom(death_image, 0, .8)
-    stand_image = pygame.image.load(os.path.join(script_dir, './assets/images/stand.png')).convert_alpha()
-    stand_image = pygame.transform.rotozoom(stand_image, 0, .8)
+    walk_1 = load_image('walk1.png', 0.8)
+    walk_2 = load_image('walk2.png', 0.8)
+    duck_1 = load_image('duck1.png', 0.8)
+    duck_2 = load_image('duck2.png', 0.8)
+    death_image = load_image('death2.png', 0.8)
+    stand_image = load_image('stand.png', 0.8)
     dinosaur_list = [walk_1, walk_2, duck_1, duck_2]
     walk_index = 0
     dinosaur_surface = dinosaur_list[walk_index]
@@ -74,29 +72,20 @@ def main():
     pygame.time.set_timer(WALK, 100)
 
     # Cactus
-    small_cactus_1 = pygame.image.load(os.path.join(script_dir, './assets/images/small_cactus1.png')).convert_alpha()
-    small_cactus_1 = pygame.transform.rotozoom(small_cactus_1, 0, .8)
-    small_cactus_2 = pygame.image.load(os.path.join(script_dir, './assets/images/small_cactus2.png')).convert_alpha()
-    small_cactus_2 = pygame.transform.rotozoom(small_cactus_2, 0, .8)
-    small_cactus_3 = pygame.image.load(os.path.join(script_dir, './assets/images/small_cactus3.png')).convert_alpha()
-    small_cactus_3 = pygame.transform.rotozoom(small_cactus_3, 0, .8)
-    large_cactus_1 = pygame.image.load(os.path.join(script_dir, './assets/images/large_cactus1.png')).convert_alpha()
-    large_cactus_1 = pygame.transform.rotozoom(large_cactus_1, 0, .8)
-    large_cactus_2 = pygame.image.load(os.path.join(script_dir, './assets/images/large_cactus2.png')).convert_alpha()
-    large_cactus_2 = pygame.transform.rotozoom(large_cactus_2, 0, .8)
-    large_cactus_3 = pygame.image.load(os.path.join(script_dir, './assets/images/large_cactus3.png')).convert_alpha()
-    large_cactus_3 = pygame.transform.rotozoom(large_cactus_3, 0, .8)
-    bird_1 = pygame.image.load(os.path.join(script_dir, './assets/images/bird1.png')).convert_alpha()
-    bird_1 = pygame.transform.rotozoom(bird_1, 0, .8)
-    bird_2 = pygame.image.load(os.path.join(script_dir, './assets/images/bird2.png')).convert_alpha()
-    bird_2 = pygame.transform.rotozoom(bird_2, 0, .8)
+    small_cactus_1 = load_image('small_cactus1.png', 0.8)
+    small_cactus_2 = load_image('small_cactus2.png', 0.8)
+    small_cactus_3 = load_image('small_cactus3.png', 0.8)
+    large_cactus_1 = load_image('large_cactus1.png', 0.8)
+    large_cactus_2 = load_image('large_cactus2.png', 0.8)
+    large_cactus_3 = load_image('large_cactus3.png', 0.8)
+    bird_1 = load_image('bird1.png', 0.8)
+    bird_2 = load_image('bird2.png', 0.8)
     obstical_type_list = [small_cactus_1, small_cactus_2, small_cactus_3, large_cactus_1, large_cactus_2, large_cactus_3, bird_1, bird_2]
     CACTUSSPAWN = pygame.USEREVENT + 2
     pygame.time.set_timer(CACTUSSPAWN, 1000)
 
     # Game Over button
-    game_over_button = pygame.image.load(os.path.join(script_dir, './assets/images/restart.png')).convert_alpha()
-    game_over_button = pygame.transform.rotozoom(game_over_button, 0, .8)
+    game_over_button = load_image('restart.png', 0.8)
 
     # Sounds
     jump_sound = pygame.mixer.Sound(os.path.join(script_dir, './assets/sounds/jump.wav'))
